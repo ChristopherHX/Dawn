@@ -11,6 +11,8 @@ import edu.kit.informatik.Terminal;
 
 /**
  * StateCommand
+ * @author Christopher Lukas Homberger
+ * @version 0.9.1
  */
 public class StateCommand extends Command {
     /**
@@ -21,7 +23,7 @@ public class StateCommand extends Command {
     }
 
     /**
-     * Get String Represent of piece for Terminal
+     * Gets the String representation of that piece for Terminal
      * @param piece piece to get the string representation
      * @return the string representation for the console
      */

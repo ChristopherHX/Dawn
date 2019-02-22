@@ -13,6 +13,8 @@ import edu.kit.informatik.Terminal;
 
 /**
  * MoveCommand
+ * @author Christopher Lukas Homberger
+ * @version 0.9.1
  */
 public class MoveCommand extends Command {
     private final Pattern coordinate;

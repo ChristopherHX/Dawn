@@ -11,6 +11,8 @@ import edu.kit.informatik.Terminal;
 
 /**
  * ResetCommand
+ * @author Christopher Lukas Homberger
+ * @version 0.9.1
  */
 public class ResetCommand extends Command {
     /**

@@ -8,15 +8,20 @@ import de.homberger.christopher.dawn.resources.GameConstants;
 import de.homberger.christopher.dawn.resources.Localisation;
 
 /**
- * Dawn
+ * Models the Dawn Game
+ * with its main logic and game rules
+ * @author Christopher Lukas Homberger
+ * @version 0.9.1
  */
 public class Dawn {
     /**
-     * active pieces on the board
+     * pieces placed on the board
      */
     private List<IPiece> active;
     /**
-     * Bitmask of averable Pieces
+     * Bitmask of available Pieces,
+     * piece with length 2 is stored as 1 << 2 ( 2^2, 4 ),
+     * DAWN piece with length 7 is stored as 1 << 7 ( 2^7, 128 )
      */
     private int missioncontrollpieces;
     /**
@@ -53,7 +58,7 @@ public class Dawn {
     }
 
     /**
-     * Get the Piece on that coordinate
+     * Get the Piece at that coordinate
      * @param m vertical coordinate
      * @param n horizontal coordinate
      * @return the piece or null if none are there
@@ -215,7 +220,7 @@ public class Dawn {
     }
 
     /**
-     * Move to next round or finish the game
+     * Move to the next round or finish the game
      */
     private void nextRound() {
         action = 0;

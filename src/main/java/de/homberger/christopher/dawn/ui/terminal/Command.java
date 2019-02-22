@@ -8,6 +8,8 @@ import de.homberger.christopher.dawn.main.Dawn;
 
 /**
  * Command super class of all terminal commands
+ * @author Christopher Lukas Homberger
+ * @version 0.9.1
  */
 public abstract class Command {
     private final Pattern pattern;
@@ -21,12 +23,12 @@ public abstract class Command {
     }
 
     /**
-     * Try to Math the Command and invokes it
+     * Try to match the Command and invokes it
      * @param line Terminal line input
      * @param dawn Game Object to be passed to invoke
      * @return true if it had mached and was invoked
      */
-    public boolean tryMatch(String line, Dawn dawn) {
+    public boolean tryInvoke(String line, Dawn dawn) {
         Matcher match = pattern.matcher(line);
         if (match.matches()) {
             invoke(match.toMatchResult(), dawn);

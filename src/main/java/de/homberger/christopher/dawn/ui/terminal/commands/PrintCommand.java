@@ -11,6 +11,8 @@ import edu.kit.informatik.Terminal;
 
 /**
  * PrintCommand
+ * @author Christopher Lukas Homberger
+ * @version 0.9.1
  */
 public class PrintCommand extends Command {
     /**

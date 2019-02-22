@@ -17,42 +17,48 @@ import de.homberger.christopher.dawn.ui.terminal.commands.StateCommand;
 import edu.kit.informatik.Terminal;
 
 /**
- * Hello world!
+ * Starts the Dawn Game with the Terminal UI
+ * with its main loop
+ * @author Christopher Lukas Homberger
+ * @version 0.9.1
  */
-public final class App {
+public final class DawnGameApp {
     /**
      * Prohibit contruction of this static final class
      */
-    private App() {
+    private DawnGameApp() {
     }
 
     /**
      * Starts the terminal user interface
-     * @param args The ignored arguments of the program.
+     * and handles the Terminal input
+     * @param args The ignored arguments of this console application
      */
     public static void main(String[] args) {
-        // conatins all allowed commands
+        // conains all allowed commands
         Command[] commands = new Command[] {new StateCommand(), new PrintCommand(), new SetVestaCeresCommand(), 
             new RollCommand(), new PlaceCommand(), new MoveCommand(), new ShowResultCommand(), new ResetCommand()};
+        // Instance of the Dawn Game main logic to share across the Commands
         Dawn dawn = new Dawn();
+        // Compiles the quit regex to speed up matching
         Pattern quit = Pattern.compile(CommandRegex.QUIT_PATTERN);
-        while (true) {
+        // Label to break the inner loop and continue the mainloop
+        mainloop: while (true) {
+            // wait for next command
             String line = Terminal.readLine();
             // Quit the programm if it matches the quit pattern
             if (quit.matcher(line).matches()) {
                 return;
             }
-            boolean matched = false;
             for (final Command command : commands) {
-                matched = command.tryMatch(line, dawn);
-                if (matched) {
-                    break;
+                // Try to invoke the nth command with that line
+                if (command.tryInvoke(line, dawn)) {
+                    // Successfully invoked wait for next command
+                    continue mainloop;
                 }
             }
-            // Prints error if no pattern matches
-            if (!matched) {
-                Terminal.printError(Localisation.INVALID_COMMAND);
-            }
+            // Prints error if no pattern matches (Invalid Command or Argument)
+            Terminal.printError(Localisation.INVALID_COMMAND);
         }
     }
 }

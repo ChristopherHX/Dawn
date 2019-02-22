@@ -11,6 +11,8 @@ import edu.kit.informatik.Terminal;
 
 /**
  * MoveCommand
+ * @author Christopher Lukas Homberger
+ * @version 0.9.1
  */
 public class PlaceCommand extends Command {
     /**

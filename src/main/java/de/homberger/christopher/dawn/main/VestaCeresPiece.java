@@ -4,6 +4,8 @@ import de.homberger.christopher.dawn.resources.Localisation;
 
 /**
  * Vesta / Ceres piece
+ * @author Christopher Lukas Homberger
+ * @version 0.9.1
  */
 public class VestaCeresPiece implements IPiece {
     private int y;

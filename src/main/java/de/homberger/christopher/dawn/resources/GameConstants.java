@@ -2,6 +2,8 @@ package de.homberger.christopher.dawn.resources;
 
 /**
  * GameConstants, which alter the game
+ * @author Christopher Lukas Homberger
+ * @version 0.9.1
  */
 public class GameConstants {
     /**

@@ -10,6 +10,8 @@ import edu.kit.informatik.Terminal;
 
 /**
  * ShowResultCommand
+ * @author Christopher Lukas Homberger
+ * @version 0.9.1
  */
 public class ShowResultCommand extends Command {
     /**

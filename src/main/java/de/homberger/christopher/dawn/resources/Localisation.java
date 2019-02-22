@@ -2,6 +2,8 @@ package de.homberger.christopher.dawn.resources;
 
 /**
  * Localisation
+ * @author Christopher Lukas Homberger
+ * @version 0.9.1
  */
 public class Localisation {
     /**

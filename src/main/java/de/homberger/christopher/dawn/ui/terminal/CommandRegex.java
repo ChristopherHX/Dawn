@@ -10,12 +10,12 @@ public class CommandRegex {
     /**
      * coordiante check
      */
-    public static final String INNER_COORDINATE = "(10|[0-9]);(1[0-4]|[0-9])";
+    public static final String INNER_COORDINATE = "([0-9]+);([0-9]+)";
 
     /**
-     * extended range coordinate check for dawn piece
+     * extended range coordinate check for dawn piece exclude -0 not detectable after Integer.parse
      */
-    public static final String DAWN_COORDINATE = "(1[0-6]|[0-9]|-[1-6]);(1[0-9]|20|[0-9]|-[1-6])";
+    public static final String DAWN_COORDINATE = "(-[1-9][0-9]+|[0-9]+);(-[1-9][0-9]+|[0-9]+)";
 
     /**
      * state command regex
@@ -35,7 +35,7 @@ public class CommandRegex {
     /**
      * roll command regex
      */
-    public static final String ROLL_PATTERN = "roll ([2-6]|DAWN)";
+    public static final String ROLL_PATTERN = "roll ([0-9]+|DAWN)";
 
     /**
      * place command regex

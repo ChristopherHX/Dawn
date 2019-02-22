@@ -27,7 +27,7 @@ public class MissionControllPiece implements IPiece {
         this.x = x;
         this.orientation = orientation;
         this.length = length;
-        // ToDo RangeCheck
+        // RangeCheck
         int minwidth = (orientation == Orientation.HORIZONTAL && length == GameConstants.BIGGEST_PIECE)
         ? (1 - GameConstants.BIGGEST_PIECE) : 0;
         int maxwidth = GameConstants.BOARDWIDTH + ((orientation == Orientation.HORIZONTAL

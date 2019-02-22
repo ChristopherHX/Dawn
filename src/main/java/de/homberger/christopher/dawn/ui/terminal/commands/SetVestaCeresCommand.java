@@ -11,6 +11,7 @@ import edu.kit.informatik.Terminal;
 
 /**
  * SetVestaCeresCommand
+ * instruct the game to place vesta or ceres on the board
  * @author Christopher Lukas Homberger
  * @version 0.9.1
  */

@@ -11,6 +11,7 @@ import edu.kit.informatik.Terminal;
 
 /**
  * ResetCommand
+ * calls reset on the game, then prints OK
  * @author Christopher Lukas Homberger
  * @version 0.9.1
  */

@@ -10,7 +10,8 @@ import de.homberger.christopher.dawn.ui.terminal.CommandRegex;
 import edu.kit.informatik.Terminal;
 
 /**
- * MoveCommand
+ * PlaceCommand
+ * instructs the game to place a mission controll piece
  * @author Christopher Lukas Homberger
  * @version 0.9.1
  */

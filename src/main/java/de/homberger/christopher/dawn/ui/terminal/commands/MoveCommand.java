@@ -13,6 +13,7 @@ import edu.kit.informatik.Terminal;
 
 /**
  * MoveCommand
+ * Translates input not path array and instucts the game to move vesta or ceres
  * @author Christopher Lukas Homberger
  * @version 0.9.1
  */
@@ -24,6 +25,7 @@ public class MoveCommand extends Command {
      */
     public MoveCommand() {
         super(Pattern.compile(CommandRegex.MOVE_PATTERN));
+        // store coordinate pattern for the move path
         coordinate = Pattern.compile(CommandRegex.INNER_COORDINATE);
     }
 

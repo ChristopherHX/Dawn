@@ -10,6 +10,7 @@ import edu.kit.informatik.Terminal;
 
 /**
  * ShowResultCommand
+ * calculate result value and print it to the Terminal
  * @author Christopher Lukas Homberger
  * @version 0.9.1
  */

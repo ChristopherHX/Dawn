@@ -11,6 +11,7 @@ import edu.kit.informatik.Terminal;
 
 /**
  * PrintCommand
+ * states all fields of the board and builds the string with statecommand
  * @author Christopher Lukas Homberger
  * @version 0.9.1
  */

@@ -12,6 +12,7 @@ import edu.kit.informatik.Terminal;
 
 /**
  * RollCommand
+ * Rolls the dice with specfic value and instruct the game to use it
  * @author Christopher Lukas Homberger
  * @version 0.9.1
  */
@@ -26,8 +27,11 @@ public class RollCommand extends Command {
     @Override
     public void invoke(MatchResult res, Dawn dawn) {
         try {
-            // converts argument to number, DAWN the only allowed code with more than 1 character is the biggest one
-            dawn.roll(res.group(1).length() == 1 ? Integer.parseInt(res.group(1)) : GameConstants.BIGGEST_PIECE);
+            // converts argument to number or DAWN the only allowed code which must not be a number as biggest piece
+            // number range is checked in main game
+            dawn.roll(res.group(1).equals(Localisation.DAWN)
+            ? GameConstants.BIGGEST_PIECE : Integer.parseInt(res.group(1)));
+            // Succeed, without errors
             Terminal.printLine(Localisation.SUCCESS);
         } catch (IllegalAccessError e) {
             Terminal.printError(e.getMessage());

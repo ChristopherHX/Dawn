@@ -62,8 +62,12 @@ public class Dawn {
      * @param m vertical coordinate
      * @param n horizontal coordinate
      * @return the piece or null if none are there
+     * @throws IllegalArgumentException illegal coordinate
      */
-    public IPiece state(int m, int n) {
+    public IPiece state(int m, int n) throws IllegalArgumentException {
+        if (m < 0 || m > GameConstants.BOARDHEIGHT || n < 0 || n > GameConstants.BOARDWIDTH) {
+            throw new IllegalArgumentException(Localisation.ILLEGAL_COORDINATE);
+        }
         for (final IPiece piece : active) {
             if (piece.contains(m, n)) {
                 return piece;
@@ -131,10 +135,11 @@ public class Dawn {
         }
         int ml = Math.abs(m1 - m2) + 1;
         int nl = Math.abs(n1 - n2) + 1;
-        if (ml <= 0 || nl <= 0 || ml > 1 && nl > 1) {
+        int length = Math.max(ml, nl);
+        if (ml <= 0 || nl <= 0 || ml > 1 && nl > 1 || length < GameConstants.SMALLEST_PIECE
+        || length > GameConstants.BIGGEST_PIECE) {
             throw new IllegalArgumentException(Localisation.INVALID_PIECE);
         }
-        int length = Math.max(ml, nl);
         // look at javadoc @missioncontrollpieces
         int toplace = 1 << length;
         if ((toplace & missioncontrollpieces) != toplace) {
@@ -162,10 +167,10 @@ public class Dawn {
         }
         int m = Math.min(m1, m2);
         int n = Math.min(n1, n2);
-        // Test for uses fields
-        for (int i = 0; i < ml; i++) {
-            for (int j = 0; j < nl; j++) {
-                if (state(m + i, n + j) != null) {
+        // Test for uses fields only if there are on the board avoid exception of state
+        for (int i = m < 0 ? 0 : m; i < (m + ml) && i < GameConstants.BOARDHEIGHT; i++) {
+            for (int j = n < 0 ? 0 : n; j < (n + nl) && j < GameConstants.BOARDWIDTH; j++) {
+                if (state(i, j) != null) {
                     throw new IllegalArgumentException(Localisation.USED_FIELD);
                 }
             }

@@ -19,7 +19,7 @@ public class Dawn {
      */
     private List<IPiece> active;
     /**
-     * Bitmask of available Pieces,
+     * available Pieces for missioncontroll
      * piece with length 2 is stored as 1 << 2 ( 2^2, 4 ),
      * DAWN piece with length 7 is stored as 1 << 7 ( 2^7, 128 )
      */
@@ -37,15 +37,15 @@ public class Dawn {
      */
     private int round;
     /**
-     * current action i / ii / iii
+     * current action i / ii / iii ...
      */
     private int action;
     /**
-     * vesta piece backup for gameresult avoid searching
+     * vesta piece backup for gameresult avoid searching it again
      */
     private VestaCeresPiece vesta;
     /**
-     * Curent vesta / Ceres piece to move around
+     * current vesta / ceres piece to move around
      */
     private VestaCeresPiece vc;
 
@@ -77,13 +77,14 @@ public class Dawn {
      * @param m vertical coordinate
      * @param n horizontal coordinate
      * @throws IllegalAccessError Method not allowed, field is used
+     * @throws IllegalArgumentException code out of range
      */
-    public void setVC(int m, int n) {
+    public void setVC(int m, int n) throws IllegalAccessError, IllegalArgumentException {
         if (phase < 0 || phase >= GameConstants.PHASES || round != 0) {
             throw new IllegalAccessError(Localisation.PROHIBIT_OPERATION);
         }
         if (state(m, n) != null) {
-            throw new IllegalAccessError(Localisation.USED_FIELD);
+            throw new IllegalArgumentException(Localisation.USED_FIELD);
         }
         vc = new VestaCeresPiece(m, n, phase == 0 ? Type.VESTA : Type.CERES);
         // Backup Vesta for faster results calculation
@@ -96,15 +97,21 @@ public class Dawn {
 
     /**
      * Rolls the dice with an explicit number
-     * @param code 2-6 normal pieces, 7 DAWN
+     * @param code allowed from {@code GameConstants.SMALLEST_PIECE} to {@code GameConstants.BIGGEST_PIECE}
      * @throws IllegalAccessError Method not allowed
+     * @throws IllegalArgumentException code out of range
      */
-    public void roll(int code) throws IllegalAccessError {
+    public void roll(int code) throws IllegalAccessError, IllegalArgumentException {
+        if (code < GameConstants.SMALLEST_PIECE || code > GameConstants.BIGGEST_PIECE) {
+            throw new IllegalArgumentException(Localisation.ILLEGAL_ROLL);
+        }
         if (phase < 0 || phase >= GameConstants.PHASES || round < 1 || round > GameConstants.ROUNDS
         || action != GameConstants.ROLL_ACTION) {
             throw new IllegalAccessError(Localisation.PROHIBIT_OPERATION);
         }
+        // Save rolled number
         rolled = code;
+        // Move to next action
         action++;
     }
 
@@ -114,9 +121,10 @@ public class Dawn {
      * @param n1 horizontal coordinate 1 of rectangle
      * @param m2 vertical coordinate 2 of rectangle
      * @param n2 horizontal coordinate 2 of rectangle
-     * @throws IllegalAccessError Method not allowed, piece not exists or used
+     * @throws IllegalAccessError Method not allowed
+     * @throws IllegalArgumentException piece not exists, used or is placed invalid
      */
-    public void place(int m1, int n1, int m2, int n2) throws IllegalAccessError {
+    public void place(int m1, int n1, int m2, int n2) throws IllegalAccessError, IllegalArgumentException {
         if (phase < 0 || phase >= GameConstants.PHASES || round < 1 || round > GameConstants.ROUNDS
         || action != GameConstants.PLACE_ACTION) {
             throw new IllegalAccessError(Localisation.PROHIBIT_OPERATION);
@@ -124,26 +132,29 @@ public class Dawn {
         int ml = Math.abs(m1 - m2) + 1;
         int nl = Math.abs(n1 - n2) + 1;
         if (ml <= 0 || nl <= 0 || ml > 1 && nl > 1) {
-            throw new IllegalAccessError(Localisation.INVALID_PIECE);
+            throw new IllegalArgumentException(Localisation.INVALID_PIECE);
         }
         int length = Math.max(ml, nl);
+        // look at javadoc @missioncontrollpieces
         int toplace = 1 << length;
         if ((toplace & missioncontrollpieces) != toplace) {
-            throw new IllegalAccessError(Localisation.USED_PIECE);
+            throw new IllegalArgumentException(Localisation.USED_PIECE);
         }
         // Force to use next to shouldplaced piece
+        // disallow if one or more available pieces are between rolled length and choosen one
         {
+            // look at javadoc @missioncontrollpieces
             int shouldplaced = 1 << rolled;
             if (toplace != shouldplaced) {
                 while (toplace > shouldplaced) {
                     if ((shouldplaced & missioncontrollpieces) == shouldplaced) {
-                        throw new IllegalAccessError(Localisation.INVALID_PIECE);                    
+                        throw new IllegalArgumentException(Localisation.INVALID_PIECE);                    
                     }
                     shouldplaced <<= 1;
                 }
                 while (toplace < shouldplaced) {
                     if ((shouldplaced & missioncontrollpieces) == shouldplaced) {
-                        throw new IllegalAccessError(Localisation.INVALID_PIECE);                    
+                        throw new IllegalArgumentException(Localisation.INVALID_PIECE);                    
                     }
                     shouldplaced >>= 1;
                 }
@@ -155,7 +166,7 @@ public class Dawn {
         for (int i = 0; i < ml; i++) {
             for (int j = 0; j < nl; j++) {
                 if (state(m + i, n + j) != null) {
-                    throw new IllegalAccessError(Localisation.USED_FIELD);
+                    throw new IllegalArgumentException(Localisation.USED_FIELD);
                 }
             }
         }
@@ -178,11 +189,12 @@ public class Dawn {
     }
 
     /**
-     * Moves Vesta / Ceres if it's possible
+     * Moves vesta / ceres if it's possible
      * @param path to move the Vesta or Ceres Piece
-     * @throws IllegalAccessError Method not allowed or illegal path array
+     * @throws IllegalAccessError Method not allowed
+     * @throws IllegalArgumentException illegal path array, contains used fields
      */
-    public void move(int[][] path) throws IllegalAccessError {
+    public void move(int[][] path) throws IllegalAccessError, IllegalArgumentException {
         if (phase < 0 || phase >= GameConstants.PHASES || round < 1 || round > GameConstants.ROUNDS
         || action != GameConstants.MOVE_ACTION) {
             throw new IllegalAccessError(Localisation.PROHIBIT_OPERATION);
@@ -190,27 +202,27 @@ public class Dawn {
         if (path == null || path.length < 1 || path.length > rolled || path[0] == null
         || ((path[0][0] != vc.getY() || Math.abs(path[0][1] - vc.getX()) != 1)
         && (path[0][1] != vc.getX() || Math.abs(path[0][0] - vc.getY()) != 1))) {
-            throw new IllegalAccessError(Localisation.ILLEGAL_PATH);
+            throw new IllegalArgumentException(Localisation.ILLEGAL_PATH);
         }
-        // Backup Vesta / Ceres old position
+        // Backup vesta / ceres old position for error handling
         int x = vc.getX();
         int y = vc.getY();
         try {
             for (int i = 0; i < path.length - 1; i++) {
                 if (path[i] == null || (path[i][0] != path[i + 1][0] || Math.abs(path[i][1] - path[i + 1][1]) != 1)
                 && (path[i][1] != path[i + 1][1] || Math.abs(path[i][0] - path[i + 1][0]) != 1)) {
-                    throw new IllegalAccessError(Localisation.ILLEGAL_PATH);                
+                    throw new IllegalArgumentException(Localisation.ILLEGAL_PATH);                
                 }
                 if (state(path[i][0], path[i][1]) != null) {
-                    throw new IllegalAccessError(Localisation.USED_FIELD);
+                    throw new IllegalArgumentException(Localisation.USED_FIELD);
                 }
                 vc.setPos(path[i][0], path[i][1]);
             }
             if (state(path[path.length - 1][0], path[path.length - 1][1]) != null) {
-                throw new IllegalAccessError(Localisation.USED_FIELD);
+                throw new IllegalArgumentException(Localisation.USED_FIELD);
             }
             vc.setPos(path[path.length - 1][0], path[path.length - 1][1]);
-        } catch (IllegalAccessError e) {
+        } catch (IllegalArgumentException e) {
             // Restore Vesta / Ceres if failed
             vc.setPos(y, x);
             // rethrow exception to caller
@@ -224,22 +236,26 @@ public class Dawn {
      */
     private void nextRound() {
         action = 0;
-        round++;
-        if (round == 7) {
+        if (round == GameConstants.ROUNDS) {
             round = 0;
-            phase++;
-            if (phase == 1) {
+            if (phase == 0) {
                 vc = null;
                 missioncontrollpieces = GameConstants.PIECES_SET;
             }
+            phase++;
+        } else {
+            round++;
         }
     }
 
     /**
-     * Recursivly calculate free fieds
-     * @param fields Hashmap to store hashs of already done free fields
-     * @param y vertical coordinate
-     * @param x horizontal coordinate
+     * Recursivly calculate free fields
+     * looks left-, right-, up- and downwards for new free fields and their neighbours
+     * @param fields Hashmap to store hashs of already done free fields,
+     * must != null should be empty if not recursivly called
+     * @param y current vertical coordinate
+     * @param x current horizontal coordinate
+     * the grown size of the fields set is the number of free fields around
      */
     private void calculateFreeFields(HashSet<Integer> fields, int y, int x) {
         // Check upper
@@ -290,7 +306,7 @@ public class Dawn {
      * @throws IllegalAccessError game is running
      */
     public int getResult() {
-        if (phase != 2) {
+        if (phase != GameConstants.PHASES) {
             throw new IllegalAccessError(Localisation.PROHIBIT_OPERATION);
         }
         HashSet<Integer> fields = new HashSet<>();
@@ -303,7 +319,8 @@ public class Dawn {
     }
 
     /**
-     * Resets the Game
+     * Resets the Game,
+     * simply start a new game and abort existing instances
      */
     public void reset() {
         active.clear();

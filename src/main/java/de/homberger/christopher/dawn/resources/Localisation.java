@@ -7,9 +7,9 @@ package de.homberger.christopher.dawn.resources;
  */
 public class Localisation {
     /**
-     * 
+     * Error string when command or argument is invalid
      */
-    public static final String INVALID_COMMAND = "Invalid Command or Argument";
+    public static final String INVALID_COMMAND_OR_ARGUMENT = "Invalid Command or Argument";
 
     /**
      * 
@@ -40,5 +40,10 @@ public class Localisation {
      * 
      */
     public static final String ILLEGAL_PATH = "path to short / long or invalid";
+
+    /**
+     * roll was called with invalid code
+     */
+    public static final String ILLEGAL_ROLL = "rolled number out of range";
     
 }

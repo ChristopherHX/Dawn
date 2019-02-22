@@ -58,7 +58,7 @@ public final class DawnGameApp {
                 }
             }
             // Prints error if no pattern matches (Invalid Command or Argument)
-            Terminal.printError(Localisation.INVALID_COMMAND);
+            Terminal.printError(Localisation.INVALID_COMMAND_OR_ARGUMENT);
         }
     }
 }

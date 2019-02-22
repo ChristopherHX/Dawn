@@ -20,21 +20,25 @@ public class MissionControllPiece implements IPiece {
      * @param x horizontal coordinate
      * @param orientation vertical or hoizontal piece
      * @param length length in orientation
-     * @throws IllegalAccessError it's an invalid piece
+     * @throws IllegalArgumentException it's an invalid piece
      */
-    public MissionControllPiece(int y, int x, Orientation orientation, int length) throws IllegalAccessError {
+    public MissionControllPiece(int y, int x, Orientation orientation, int length) throws IllegalArgumentException {
         this.y = y;
         this.x = x;
         this.orientation = orientation;
         this.length = length;
         // ToDo RangeCheck
-        int minwidth = (orientation == Orientation.HORIZONTAL && length == 7) ? -6 : 0;
-        int maxwidth = GameConstants.BOARDWIDTH + ((orientation == Orientation.HORIZONTAL && length == 7) ? 6 : 0);
-        int minheight = (orientation == Orientation.VERTICAL && length == 7) ? -6 : 0;
-        int maxheight = GameConstants.BOARDHEIGHT + ((orientation == Orientation.VERTICAL && length == 7) ? 6 : 0);
-        if (length != 7 && (y < minwidth || y + getHeight() > maxheight
+        int minwidth = (orientation == Orientation.HORIZONTAL && length == GameConstants.BIGGEST_PIECE)
+        ? (1 - GameConstants.BIGGEST_PIECE) : 0;
+        int maxwidth = GameConstants.BOARDWIDTH + ((orientation == Orientation.HORIZONTAL
+        && length == GameConstants.BIGGEST_PIECE) ? (GameConstants.BIGGEST_PIECE - 1) : 0);
+        int minheight = (orientation == Orientation.VERTICAL && length == GameConstants.BIGGEST_PIECE)
+        ? (1 - GameConstants.BIGGEST_PIECE) : 0;
+        int maxheight = GameConstants.BOARDHEIGHT + ((orientation == Orientation.VERTICAL
+        && length == GameConstants.BIGGEST_PIECE) ? (GameConstants.BIGGEST_PIECE - 1) : 0);
+        if (length != GameConstants.BIGGEST_PIECE && (y < minwidth || y + getHeight() > maxheight
         || x < minheight || x + getWidth() > maxwidth)) {
-            throw new IllegalAccessError(Localisation.INVALID_PIECE);
+            throw new IllegalArgumentException(Localisation.INVALID_PIECE);
         }
     }
 

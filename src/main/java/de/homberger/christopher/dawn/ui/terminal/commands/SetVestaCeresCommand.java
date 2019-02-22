@@ -29,6 +29,8 @@ public class SetVestaCeresCommand extends Command {
             Terminal.printLine(Localisation.SUCCESS);
         } catch (IllegalAccessError e) {
             Terminal.printError(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            Terminal.printError(Localisation.INVALID_COMMAND_OR_ARGUMENT + ", " + e.getMessage());
         }
     }
 }

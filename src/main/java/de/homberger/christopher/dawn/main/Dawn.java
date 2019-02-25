@@ -316,9 +316,12 @@ public class Dawn {
         }
         HashSet<Integer> fields = new HashSet<>();
         calculateFreeFields(fields, this.vesta.getY(), this.vesta.getX());
+        // Freefields around vesta
         int fv = fields.size();
+        // Clear the map and reuse it for ceres
         fields.clear();
         calculateFreeFields(fields, this.vc.getY(), this.vc.getX());
+        // Freefields around ceres
         int fc = fields.size();
         return 2 * Math.max(fv, fc) - Math.min(fv, fc);
     }

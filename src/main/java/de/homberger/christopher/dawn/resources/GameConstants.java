@@ -3,7 +3,7 @@ package de.homberger.christopher.dawn.resources;
 /**
  * GameConstants, which alter the game
  * @author Christopher Lukas Homberger
- * @version 0.9.1
+ * @version 0.9.2
  */
 public class GameConstants {
     /**
@@ -18,14 +18,12 @@ public class GameConstants {
 
     /**
      * smallest piece in the set, have to >= 1
-     * (Note: Console Interface regex is hardcoded to match spec, keep >= 2 and <= 7)
      */
     public static final int SMALLEST_PIECE = 2;
 
     
     /**
      * biggest piece in the set, have to >= SMALLEST_PIECE
-     * (Note: Console Interface regex is hardcoded to match spec, keep >= 2 and <= 7)
      */
     public static final int BIGGEST_PIECE = 7;
 

@@ -11,7 +11,7 @@ import de.homberger.christopher.dawn.resources.Localisation;
  * Models the Dawn Game
  * with its main logic and game rules
  * @author Christopher Lukas Homberger
- * @version 0.9.1
+ * @version 0.9.2
  */
 public class Dawn {
     /**

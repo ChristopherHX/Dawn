@@ -6,7 +6,7 @@ import de.homberger.christopher.dawn.resources.Localisation;
 /**
  * MissionControllPiece
  * @author Christopher Lukas Homberger
- * @version 0.9.1
+ * @version 0.9.2
  */
 public class MissionControllPiece implements IPiece {
     private final int y;

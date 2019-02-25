@@ -3,7 +3,7 @@ package de.homberger.christopher.dawn.main;
 /**
  * IPiece
  * @author Christopher Lukas Homberger
- * @version 0.9.1
+ * @version 0.9.2
  */
 public interface IPiece {
     /**

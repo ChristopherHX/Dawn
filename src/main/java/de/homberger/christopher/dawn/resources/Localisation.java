@@ -3,14 +3,9 @@ package de.homberger.christopher.dawn.resources;
 /**
  * Localisation
  * @author Christopher Lukas Homberger
- * @version 0.9.1
+ * @version 0.9.2
  */
 public class Localisation {
-    /**
-     * Error string when command or argument is invalid
-     */
-    public static final String INVALID_COMMAND_OR_ARGUMENT = "Invalid Command or Argument";
-
     /**
      * there is already a piece on the board
      */
@@ -20,11 +15,6 @@ public class Localisation {
      * Gamerule violation
      */
     public static final String PROHIBIT_OPERATION = "You're trying to ignore DAWN Rules";
-
-    /**
-     * No error
-     */
-    public static final String SUCCESS = "OK";
 
     /**
      * pieces dimmension not match existing ones

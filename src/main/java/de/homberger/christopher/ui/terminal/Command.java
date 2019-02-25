@@ -1,17 +1,15 @@
-package de.homberger.christopher.dawn.ui.terminal;
+package de.homberger.christopher.ui.terminal;
 
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import de.homberger.christopher.dawn.main.Dawn;
-
 /**
  * Command super class of all terminal commands
  * @author Christopher Lukas Homberger
- * @version 0.9.1
+ * @version 0.9.2
  */
-public abstract class Command {
+public abstract class Command<T> {
     private final Pattern pattern;
 
     /**
@@ -25,13 +23,13 @@ public abstract class Command {
     /**
      * Try to match the Command and invokes it
      * @param line Terminal line input
-     * @param dawn Game Object to be passed to invoke
+     * @param game Game Object to be passed to invoke
      * @return true if it had mached and was invoked
      */
-    public boolean tryInvoke(String line, Dawn dawn) {
+    public boolean tryInvoke(String line, T game) {
         Matcher match = pattern.matcher(line);
         if (match.matches()) {
-            invoke(match.toMatchResult(), dawn);
+            invoke(match.toMatchResult(), game);
             return true;
         }
         return false;
@@ -40,7 +38,7 @@ public abstract class Command {
     /**
      * Invokes the Command
      * @param res Parsed Arguments
-     * @param dawn Dawn game to change game state
+     * @param game to change game state
      */
-    public abstract void invoke(MatchResult res, Dawn dawn);
+    public abstract void invoke(MatchResult res, T game);
 }

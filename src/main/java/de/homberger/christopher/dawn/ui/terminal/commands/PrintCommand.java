@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import de.homberger.christopher.dawn.main.Dawn;
 import de.homberger.christopher.dawn.resources.GameConstants;
-import de.homberger.christopher.dawn.ui.terminal.Command;
+import de.homberger.christopher.ui.terminal.Command;
 import de.homberger.christopher.dawn.ui.terminal.CommandRegex;
 import edu.kit.informatik.Terminal;
 
@@ -13,9 +13,9 @@ import edu.kit.informatik.Terminal;
  * PrintCommand
  * states all fields of the board and builds the string with statecommand
  * @author Christopher Lukas Homberger
- * @version 0.9.1
+ * @version 0.9.2
  */
-public class PrintCommand extends Command {
+public class PrintCommand extends Command<Dawn> {
     /**
      * Print the Peaces
      */

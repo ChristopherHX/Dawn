@@ -5,18 +5,18 @@ import java.util.regex.Pattern;
 
 import de.homberger.christopher.dawn.main.Dawn;
 import de.homberger.christopher.dawn.main.IPiece;
-import de.homberger.christopher.dawn.resources.Localisation;
-import de.homberger.christopher.dawn.ui.terminal.Command;
 import de.homberger.christopher.dawn.ui.terminal.CommandRegex;
+import de.homberger.christopher.ui.terminal.Command;
+import de.homberger.christopher.ui.terminal.resources.Localisation;
 import edu.kit.informatik.Terminal;
 
 /**
  * StateCommand
  * retrieve the state of a board field
  * @author Christopher Lukas Homberger
- * @version 0.9.1
+ * @version 0.9.2
  */
-public class StateCommand extends Command {
+public class StateCommand extends Command<Dawn> {
     /**
      * Check the state of the coordinate
      */

@@ -6,18 +6,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.homberger.christopher.dawn.main.Dawn;
-import de.homberger.christopher.dawn.resources.Localisation;
-import de.homberger.christopher.dawn.ui.terminal.Command;
 import de.homberger.christopher.dawn.ui.terminal.CommandRegex;
+import de.homberger.christopher.ui.terminal.Command;
+import de.homberger.christopher.ui.terminal.resources.Localisation;
 import edu.kit.informatik.Terminal;
 
 /**
  * MoveCommand
  * Translates input not path array and instucts the game to move vesta or ceres
  * @author Christopher Lukas Homberger
- * @version 0.9.1
+ * @version 0.9.2
  */
-public class MoveCommand extends Command {
+public class MoveCommand extends Command<Dawn> {
     private final Pattern coordinate;
 
     /**

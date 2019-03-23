@@ -8,7 +8,6 @@ import de.homberger.christopher.dawn.main.IPiece;
 import de.homberger.christopher.dawn.ui.terminal.CommandRegex;
 import de.homberger.christopher.ui.terminal.Command;
 import de.homberger.christopher.ui.terminal.resources.Localisation;
-import edu.kit.informatik.Terminal;
 
 /**
  * StateCommand
@@ -51,9 +50,9 @@ public class StateCommand extends Command<Dawn> {
         int m = Integer.parseInt(res.group(1));
         int n = Integer.parseInt(res.group(2));
         try {
-            Terminal.printLine(state(dawn.state(m, n)));            
+            System.out.println(state(dawn.state(m, n)));            
         } catch (IllegalArgumentException e) {
-            Terminal.printError(Localisation.INVALID_COMMAND_OR_ARGUMENT + ", " + e.getMessage());
+            System.err.println(Localisation.INVALID_COMMAND_OR_ARGUMENT + ", " + e.getMessage());
         }
     }
 }

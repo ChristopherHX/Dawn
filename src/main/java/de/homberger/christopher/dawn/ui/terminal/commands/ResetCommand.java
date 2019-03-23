@@ -7,7 +7,6 @@ import de.homberger.christopher.dawn.main.Dawn;
 import de.homberger.christopher.dawn.ui.terminal.CommandRegex;
 import de.homberger.christopher.ui.terminal.Command;
 import de.homberger.christopher.ui.terminal.resources.Localisation;
-import edu.kit.informatik.Terminal;
 
 /**
  * ResetCommand
@@ -26,6 +25,6 @@ public class ResetCommand extends Command<Dawn> {
     @Override
     public void invoke(MatchResult res, Dawn dawn) {
         dawn.reset();
-        Terminal.printLine(Localisation.SUCCESS);
+        System.out.println(Localisation.SUCCESS);
     }
 }

@@ -9,7 +9,6 @@ import de.homberger.christopher.dawn.main.Dawn;
 import de.homberger.christopher.dawn.ui.terminal.CommandRegex;
 import de.homberger.christopher.ui.terminal.Command;
 import de.homberger.christopher.ui.terminal.resources.Localisation;
-import edu.kit.informatik.Terminal;
 
 /**
  * MoveCommand
@@ -21,7 +20,7 @@ public class MoveCommand extends Command<Dawn> {
     private final Pattern coordinate;
 
     /**
-     * Moves the Peaces
+     * Create MoveCommand with all required compiled pattern
      */
     public MoveCommand() {
         super(Pattern.compile(CommandRegex.MOVE_PATTERN));
@@ -40,11 +39,11 @@ public class MoveCommand extends Command<Dawn> {
         int[][] path = new int[apath.size()][];
         try {
             dawn.move(apath.toArray(path));
-            Terminal.printLine(Localisation.SUCCESS);
+            System.out.println(Localisation.SUCCESS);
         } catch (IllegalAccessError e) {
-            Terminal.printError(e.getMessage());
+            System.err.println(e.getMessage());
         } catch (IllegalArgumentException e) {
-            Terminal.printError(Localisation.INVALID_COMMAND_OR_ARGUMENT + ", " + e.getMessage());
+            System.err.println(Localisation.INVALID_COMMAND_OR_ARGUMENT + ", " + e.getMessage());
         }
     }
 }

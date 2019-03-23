@@ -7,7 +7,6 @@ import de.homberger.christopher.dawn.main.Dawn;
 import de.homberger.christopher.dawn.resources.GameConstants;
 import de.homberger.christopher.ui.terminal.Command;
 import de.homberger.christopher.dawn.ui.terminal.CommandRegex;
-import edu.kit.informatik.Terminal;
 
 /**
  * PrintCommand
@@ -30,7 +29,7 @@ public class PrintCommand extends Command<Dawn> {
             for (int j = 0; j < GameConstants.BOARDWIDTH; j++) {
                 line.append(StateCommand.state(dawn.state(i, j)));
             }
-            Terminal.printLine(line.toString());
+            System.out.println(line.toString());
         }
     }
 }

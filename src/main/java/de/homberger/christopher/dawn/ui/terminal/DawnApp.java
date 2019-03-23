@@ -22,8 +22,9 @@ public class DawnApp {
     public static void main(String[] args) {
         // Instance of the Dawn Game main logic to share across the Commands
         Dawn dawn = new Dawn();
-        ConsoleApp<Dawn> app = new ConsoleApp<Dawn>(Arrays.asList(new StateCommand(), new PrintCommand(), new SetVestaCeresCommand(), 
-            new RollCommand(), new PlaceCommand(), new MoveCommand(), new ShowResultCommand(), new ResetCommand()));
+        ConsoleApp<Dawn> app = new ConsoleApp<Dawn>(Arrays.asList(new StateCommand(), new PrintCommand(),
+        new SetVestaCeresCommand(), new RollCommand(), new PlaceCommand(), new MoveCommand(),
+        new ShowResultCommand(), new ResetCommand()));
         app.run(dawn);
     }
 }

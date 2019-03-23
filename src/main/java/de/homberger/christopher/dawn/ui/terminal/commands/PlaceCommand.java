@@ -7,7 +7,6 @@ import de.homberger.christopher.dawn.main.Dawn;
 import de.homberger.christopher.dawn.ui.terminal.CommandRegex;
 import de.homberger.christopher.ui.terminal.Command;
 import de.homberger.christopher.ui.terminal.resources.Localisation;
-import edu.kit.informatik.Terminal;
 
 /**
  * PlaceCommand
@@ -28,11 +27,11 @@ public class PlaceCommand extends Command<Dawn> {
         try {
             dawn.place(Integer.parseInt(res.group(1)), Integer.parseInt(res.group(2)),
             Integer.parseInt(res.group(3)), Integer.parseInt(res.group(4)));
-            Terminal.printLine(Localisation.SUCCESS);
+            System.out.println(Localisation.SUCCESS);
         } catch (IllegalAccessError e) {
-            Terminal.printError(e.getMessage());
+            System.err.println(e.getMessage());
         } catch (IllegalArgumentException e) {
-            Terminal.printError(Localisation.INVALID_COMMAND_OR_ARGUMENT + ", " + e.getMessage());
+            System.err.println(Localisation.INVALID_COMMAND_OR_ARGUMENT + ", " + e.getMessage());
         }
     }
 }

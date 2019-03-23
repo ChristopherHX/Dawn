@@ -8,7 +8,7 @@ package de.homberger.christopher.dawn.ui.terminal;
  */
 public class CommandRegex {
     /**
-     * coordiante check
+     * coordiante check only positive coordinates
      */
     public static final String INNER_COORDINATE = "([0-9]+);([0-9]+)";
 
@@ -56,9 +56,4 @@ public class CommandRegex {
      * Reset command regex
      */
     public static final String RESET_PATTERN = "reset";
-
-    /**
-     * Quit command regex
-     */
-    public static final String QUIT_PATTERN = "quit";
 }

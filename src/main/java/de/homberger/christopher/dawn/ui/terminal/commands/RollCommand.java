@@ -8,7 +8,6 @@ import de.homberger.christopher.dawn.resources.GameConstants;
 import de.homberger.christopher.dawn.ui.terminal.CommandRegex;
 import de.homberger.christopher.ui.terminal.Command;
 import de.homberger.christopher.ui.terminal.resources.Localisation;
-import edu.kit.informatik.Terminal;
 
 /**
  * RollCommand
@@ -32,11 +31,11 @@ public class RollCommand extends Command<Dawn> {
             dawn.roll(res.group(1).equals(de.homberger.christopher.dawn.resources.Localisation.DAWN)
             ? GameConstants.BIGGEST_PIECE : Integer.parseInt(res.group(1)));
             // Succeed, without errors
-            Terminal.printLine(Localisation.SUCCESS);
+            System.out.println(Localisation.SUCCESS);
         } catch (IllegalAccessError e) {
-            Terminal.printError(e.getMessage());
+            System.err.println(e.getMessage());
         } catch (IllegalArgumentException e) {
-            Terminal.printError(Localisation.INVALID_COMMAND_OR_ARGUMENT + ", " + e.getMessage());
+            System.err.println(Localisation.INVALID_COMMAND_OR_ARGUMENT + ", " + e.getMessage());
         }
     }
 }

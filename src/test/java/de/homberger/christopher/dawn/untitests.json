@@ -1,0 +1,22 @@
+{
+    "OK": [
+        { 
+            "command": "set-vc 0;0",
+            "then": {
+                
+            }
+        },
+        "set-vc 10;0",
+        "set-vc 0;14",
+        "set-vc 10;14",
+        "set-vc 5;5",
+        "set-vc 2;8"
+    ],
+    "ERROR": [
+        "set-vc -1;2",
+        "set-vc -4;-53",
+        "set-vc 43;25",
+        "set-vc -5;33",
+        "set-vc -13;3"
+    ]
+}

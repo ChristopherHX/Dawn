@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 import de.homberger.christopher.dawn.main.Dawn;
 import de.homberger.christopher.ui.terminal.Command;
 import de.homberger.christopher.dawn.ui.terminal.CommandRegex;
-import edu.kit.informatik.Terminal;
 
 /**
  * ShowResultCommand
@@ -25,9 +24,9 @@ public class ShowResultCommand extends Command<Dawn> {
     @Override
     public void invoke(MatchResult res, Dawn dawn) {
         try {
-            Terminal.printLine(dawn.getResult());
+            System.out.println(dawn.getResult());
         } catch (IllegalAccessError e) {
-            Terminal.printError(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 }
